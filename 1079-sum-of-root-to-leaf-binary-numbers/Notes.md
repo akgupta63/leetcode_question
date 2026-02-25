@@ -1,1 +1,1 @@
-<h2>sum-of-root-to-leaf-binary-numbers Notes</h2><hr>[ Time taken: 1 d 7 hrs 25 m 37 s ]
+<h2>sum-of-root-to-leaf-binary-numbers Notes</h2><hr>[ Time taken: 1 d 7 hrs 28 m 32 s ]
