@@ -1,44 +1,26 @@
-import java.util.*;
-
 class Solution {
 
     public int[] avoidFlood(int[] rains) {
-
-        int n = rains.length;
-
-        int[] ans = new int[n];
-
-        Map<Integer, Integer> last = new HashMap<>();
-
-        TreeSet<Integer> dryDays = new TreeSet<>();
-
-        for (int i = 0; i < n; i++) {
-
+        int[] ans = new int[rains.length];
+        Arrays.fill(ans, 1);
+        TreeSet<Integer> st = new TreeSet<Integer>();
+        Map<Integer, Integer> mp = new HashMap<Integer, Integer>();
+        for (int i = 0; i < rains.length; ++i) {
             if (rains[i] == 0) {
-
-                dryDays.add(i);
-                ans[i] = 1;
-
+                st.add(i);
             } else {
-
-                int lake = rains[i];
                 ans[i] = -1;
-
-                if (last.containsKey(lake)) {
-
-                    Integer dry = dryDays.ceiling(last.get(lake) + 1);
-
-                    if (dry == null)
+                if (mp.containsKey(rains[i])) {
+                    Integer it = st.ceiling(mp.get(rains[i]));
+                    if (it == null) {
                         return new int[0];
-
-                    ans[dry] = lake;
-                    dryDays.remove(dry);
+                    }
+                    ans[it] = rains[i];
+                    st.remove(it);
                 }
-
-                last.put(lake, i);
+                mp.put(rains[i], i);
             }
         }
-
         return ans;
     }
 }
