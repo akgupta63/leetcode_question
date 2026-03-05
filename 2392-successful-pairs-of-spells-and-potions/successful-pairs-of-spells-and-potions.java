@@ -8,7 +8,7 @@ class Solution {
         int n = spells.length;
         int m = potions.length;
 
-        int[] result = new int[n];
+        int[] ans = new int[n];
 
         for (int i = 0; i < n; i++) {
 
@@ -18,7 +18,7 @@ class Solution {
 
             while (left <= right) {
 
-                int mid = (left + right) / 2;
+                int mid = left + (right - left) / 2;
 
                 if (potions[mid] >= need) {
                     pos = mid;
@@ -28,9 +28,9 @@ class Solution {
                 }
             }
 
-            result[i] = m - pos;
+            ans[i] = m - pos;
         }
 
-        return result;
+        return ans;
     }
 }
