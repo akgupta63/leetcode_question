@@ -17,7 +17,8 @@ class Solution {
             return;
         }
 
-        for (char currentChar = 'a'; currentChar <= 'c'; currentChar++) {            if (
+        for (char currentChar = 'a'; currentChar <= 'c'; currentChar++) {
+            if (
                 currentString.length() > 0 &&
                 currentString.charAt(currentString.length() - 1) == currentChar
             ) continue;
