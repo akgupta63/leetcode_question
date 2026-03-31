@@ -5,22 +5,23 @@ class Solution {
     private static final int GUARD = 2;
     private static final int WALL = 3;
 
-    private void recurse(int row, int col, int[][] grid, char direction) {
-        if (
-            row < 0 ||
-            row >= grid.length ||
-            col < 0 ||
-            col >= grid[0].length ||
-            grid[row][col] == GUARD ||
-            grid[row][col] == WALL
-        ) {
-            return;
+    public void markguarded(int row, int col, int[][] grid) {
+        for (int r = row - 1; r >= 0; r--) {
+            if (grid[r][col] == WALL || grid[r][col] == GUARD) break;
+            grid[r][col] = GUARDED;
         }
-        grid[row][col] = GUARDED;
-        if (direction == 'U') recurse(row - 1, col, grid, 'U');
-        if (direction == 'D') recurse(row + 1, col, grid, 'D');
-        if (direction == 'L') recurse(row, col - 1, grid, 'L');
-        if (direction == 'R') recurse(row, col + 1, grid, 'R');
+        for (int r = row + 1; r < grid.length; r++) {
+            if (grid[r][col] == WALL || grid[r][col] == GUARD) break;
+            grid[r][col] = GUARDED;
+        }
+        for (int c = col - 1; c >= 0; c--) {
+            if (grid[row][c] == WALL || grid[row][c] == GUARD) break;
+            grid[row][c] = GUARDED;
+        }
+        for (int c = col + 1; c < grid[0].length; c++) {
+            if (grid[row][c] == WALL || grid[row][c] == GUARD) break;
+            grid[row][c] = GUARDED;
+        }
     }
 
     public int countUnguarded(int m, int n, int[][] guards, int[][] walls) {
@@ -32,11 +33,9 @@ class Solution {
             grid[wall[0]][wall[1]] = WALL;
         }
         for (int[] guard : guards) {
-            recurse(guard[0] - 1, guard[1], grid, 'U');
-            recurse(guard[0] + 1, guard[1], grid, 'D');
-            recurse(guard[0], guard[1] - 1, grid, 'L');
-            recurse(guard[0], guard[1] + 1, grid, 'R');
+            markguarded(guard[0], guard[1], grid);
         }
+
         int count = 0;
         for (int[] row : grid) {
             for (int cell : row) {
