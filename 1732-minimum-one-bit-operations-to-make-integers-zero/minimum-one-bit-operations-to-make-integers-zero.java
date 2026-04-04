@@ -1,12 +1,16 @@
 class Solution {
     public int minimumOneBitOperations(int n) {
-        int result = 0;
-        
-        while (n > 0) {
-            result ^= n;
-            n >>= 1;
+        if (n == 0) {
+            return 0;
         }
         
-        return result;
+        int k = 0;
+        int curr = 1;
+        while (curr * 2 <= n) {
+            curr *= 2;
+            k++;
+        }
+        
+        return (1 << (k + 1)) - 1 - minimumOneBitOperations(n ^ curr);
     }
 }
